@@ -128,12 +128,15 @@ export class UsersService {
     const result = { success: true, message: '', otp: '' };
     try {
       const decodedBody: any = await this.cryptService.decrypt(request);
-      console.log(decodedBody);
+      console.log(decodedBody, 'ENV_TYPE', this.configService.get('ENV_TYPE'));
 
       const userDetails: any = await this.fetchDetails(decodedBody.brave_id);
       if (!userDetails.email) {
         const otp = this.randomStringGenerator(4);
+        console.log('OPT\t', otp);
         if (this.configService.get('ENV_TYPE') === 'production') {
+          console.log('GOING to mail function');
+
           await this.appService.sendMailToUser(decodedBody.brave_id, otp);
         }
         result.otp = otp;
