@@ -133,7 +133,7 @@ export class UsersService {
       const userDetails: any = await this.fetchDetails(decodedBody.brave_id);
       if (!userDetails.email) {
         const otp = this.randomStringGenerator(4);
-        if (this.configService.get('NODE_ENV') === 'production') {
+        if (this.configService.get('ENV_TYPE') === 'production') {
           await this.appService.sendMailToUser(decodedBody.brave_id, otp);
         }
         result.otp = otp;
