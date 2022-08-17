@@ -20,6 +20,7 @@ export class AppService {
       try {
         // create reusable transporter object using the default SMTP transport
         transporter = nodemailer.createTransport({
+          // name: 'mail.ryuytyuuspace.in',
           host: 'smpt.gmail.com',
           port: 465,
           secure: true, // true for 465, false for other ports
@@ -28,6 +29,9 @@ export class AppService {
             user: this.configService.get('EMAIL'), // generated ethereal user
             pass: this.configService.get('EMAIL_KEY'), // generated ethereal password
           },
+          // tls: {
+          //   rejectUnauthorized: false,
+          // },
         });
         console.log('Its Done');
       } catch (error) {
@@ -37,12 +41,12 @@ export class AppService {
       try {
         // send mail with defined transport object
         const info = await transporter.sendMail({
-          from: `"Ryuytyuu Greseven 🐿️" <${this.configService.get('EMAIL')}>`, // sender address
+          from: `"Space Collage 🐿️" <${this.configService.get('EMAIL')}>`, // sender address
           to: `${user_email}`, // "bar@example.com, baz@example.com" list of receivers
-          subject: 'OTP Verification from RG Studio', // Subject line
-          text: `OTP Verification from RG Studio`, // plain text body
-          html: `<h2><b>R G STUDIO</b></h2>
-          <br>I got to know your trying to signup/login into R G Studio.\nIf not please ignore this mail.
+          subject: 'OTP Verification from R G Space Collage', // Subject line
+          text: `OTP Verification from R G Space Collage`, // plain text body
+          html: `<h2><b>R G Space Collage</b></h2>
+          <br>I got to know your trying to signup/login into R G Space Collage.\nIf not please ignore this mail.
           <br>Here you go with OTP : <i>${otp}</i>`, // html body
         });
         console.log('Message sent: %s', info.messageId);
